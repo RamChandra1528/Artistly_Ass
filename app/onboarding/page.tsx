@@ -12,7 +12,6 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Badge } from '@/components/ui/badge';
-import { Progress } from '@/components/ui/progress';
 import { toast } from 'sonner';
 import { ChevronLeft, ChevronRight, Upload, CheckCircle } from 'lucide-react';
 import { artistCategories, languages, priceRanges, locations } from '@/lib/mock-data';
@@ -44,6 +43,18 @@ const STEPS = [
   { id: 3, title: 'Pricing & Availability', description: 'Set your rates and preferences' },
   { id: 4, title: 'Review & Submit', description: 'Review your application' },
 ];
+
+// Custom Progress Component
+function CustomProgress({ value }: { value: number }) {
+  return (
+    <div className="w-full bg-muted rounded-full h-2">
+      <div 
+        className="bg-primary h-2 rounded-full transition-all duration-300 ease-in-out"
+        style={{ width: `${Math.min(100, Math.max(0, value))}%` }}
+      />
+    </div>
+  );
+}
 
 export default function OnboardingPage() {
   const [currentStep, setCurrentStep] = useState(1);
@@ -172,7 +183,7 @@ export default function OnboardingPage() {
             </div>
           ))}
         </div>
-        <Progress value={progress} className="h-2" />
+        <CustomProgress value={progress} />
       </div>
 
       <Form {...form}>
